@@ -3,17 +3,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 
 public class StuffStoreTest {
 
     private final String key1 = "stuff1";
     private final String key2 = "stuff2";
-    private final String key3 = "stuff3";
 
     private final String data1 = "data1";
     private final String data2 = "data2";
-    private final String data3 = "data3";
 
     private StuffStore store1 = null;
 
