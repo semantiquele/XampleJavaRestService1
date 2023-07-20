@@ -1,6 +1,5 @@
 package org.xample.javarestservice;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 public interface IStuffStore {

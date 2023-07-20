@@ -6,15 +6,16 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SimpleStuffStore implements IStuffStore {
-    private final Map<String, StuffModel> datastore = new HashMap<>();
-    private final Logger logger;
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleStuffStore.class);
 
-    public SimpleStuffStore(Logger logger) {
-        this.logger = logger;
+    private final Map<String, StuffModel> datastore = new HashMap<>();
+
+    public SimpleStuffStore() {
     }
 
     @Override
@@ -51,7 +52,7 @@ public class SimpleStuffStore implements IStuffStore {
 
     @Override
     public boolean storeStuff(StuffModel stuff) {
-        logger.info("trying to store stuff with key '"+stuff.getKey()+"'");
+        LOG.info("trying to store stuff with key '"+stuff.getKey()+"'");
         if (datastore.containsKey(stuff.getKey())) {
             return false;
         }
@@ -61,7 +62,7 @@ public class SimpleStuffStore implements IStuffStore {
 
     @Override
     public boolean updateStuff(StuffModel stuff) {
-        logger.info("trying to update stuff with key '"+stuff.getKey()+"'");
+        LOG.info("trying to update stuff with key '"+stuff.getKey()+"'");
         if (!datastore.containsKey(stuff.getKey()))
             return false;
         datastore.put(stuff.getKey(), stuff);

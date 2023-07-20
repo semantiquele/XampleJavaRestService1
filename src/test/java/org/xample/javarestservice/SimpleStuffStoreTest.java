@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.LoggerFactory;
 
 public class SimpleStuffStoreTest {
 
@@ -17,8 +16,7 @@ public class SimpleStuffStoreTest {
 
     @BeforeEach
     public void setUp() {
-        var logger = LoggerFactory.getLogger("test");
-        store1 = new SimpleStuffStore(logger);
+        store1 = new SimpleStuffStore();
     }
 
     @Test
