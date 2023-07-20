@@ -1,5 +1,6 @@
 package org.xample.javarestservice;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 public interface IStuffStore {
@@ -15,6 +16,12 @@ public interface IStuffStore {
      * @return number of stuff items stored
      */
     long getCount();
+
+    /**
+     * Creates an iterator to all stored stuff.
+     * @return iterator to all stored stuff
+     */
+    IStuffIterator createStuffIterator();
 
     /**
      * Looks up stuff for a given key.

@@ -3,8 +3,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 
-public class StuffStoreTest {
+public class SimpleStuffStoreTest {
 
     private final String key1 = "stuff1";
     private final String key2 = "stuff2";
@@ -12,11 +13,12 @@ public class StuffStoreTest {
     private final String data1 = "data1";
     private final String data2 = "data2";
 
-    private StuffStore store1 = null;
+    private SimpleStuffStore store1 = null;
 
     @BeforeEach
     public void setUp() {
-        store1 = new StuffStore();
+        var logger = LoggerFactory.getLogger("test");
+        store1 = new SimpleStuffStore(logger);
     }
 
     @Test
@@ -27,6 +29,13 @@ public class StuffStoreTest {
     @Test
     public void givenEmptyStoreWhenGetCountThenZero() {
         assertEquals(0, store1.getCount());
+    }
+
+    @Test
+    public void givenEmptyStoreWhenCreateIteratorThenEmptySequence() {
+        try (var actual = store1.createStuffIterator()) {
+            assertFalse(actual.hasNext());
+        }
     }
 
     @Test
@@ -61,6 +70,18 @@ public class StuffStoreTest {
     public void givenSingletonStoreWhenGetCountThenOne() {
         store1.storeStuff(new StuffModel(key1, data1));
         assertEquals(1, store1.getCount());
+    }
+
+    @Test
+    public void givenSingletonStoreWhenCreateIteratorThenSingletonSequence() {
+        store1.storeStuff(new StuffModel(key1, data1));
+        try (var actualIterator = store1.createStuffIterator()) {
+            assertTrue(actualIterator.hasNext());
+            var item = actualIterator.next();
+            assertEquals(key1, item.getKey());
+            assertEquals(data1, item.getData());
+            assertFalse(actualIterator.hasNext());
+        }
     }
 
     @Test
